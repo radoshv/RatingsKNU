@@ -1,13 +1,25 @@
+-- Міжнарод. відділ + відділ Беха
+
 USE RatingsKNU;
 GO
 
-create table Poziczіya_Unіversitetu_v_reytingu_Webometrics (
-	VNZ_krain_Skhіdnoi_Evropi int,
-	VNZ_krain_svіtu int
+-- Позиція Університету в рейтингу Webometrics серед:
+create table PositionInWebometrics (
+	Lock char(1) not null DEFAULT 'X',
+	EasternEuropeUniversities int, -- ВНЗ країн Східної Європи
+	WorldUniversities int -- ВНЗ країн світу
+	/* Single row constarins */
+    constraint _PK PRIMARY KEY (Lock),
+    constraint _CK CHECK (Lock='X')
 );
 
-create table Reyting_Unіversitetu_v_QS (
-	All_World int,
-	Eastern_Europe_and_Central_Asia int
+-- Рейтинг Університету в QS:
+create table PositionInQS (
+	Lock char(1) not null DEFAULT 'X',
+	AllWorld int,
+	EasternEuropeAndCentralAsia int,
+	/* Single row constarins */
+    constraint _PK PRIMARY KEY (Lock),
+    constraint _CK CHECK (Lock='X')
 );
 
