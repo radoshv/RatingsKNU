@@ -9,8 +9,8 @@ create table PositionInWebometrics (
 	EasternEuropeUniversities int, -- ВНЗ країн Східної Європи
 	WorldUniversities int -- ВНЗ країн світу
 	/* Single row constarins */
-    constraint _PK PRIMARY KEY (Lock),
-    constraint _CK CHECK (Lock='X')
+    constraint _PK_PositionInWebometrics PRIMARY KEY (Lock),
+    constraint _CK_PositionInWebometrics CHECK (Lock='X')
 );
 
 -- Рейтинг Університету в QS:
@@ -19,7 +19,7 @@ create table PositionInQS (
 	AllWorld int,
 	EasternEuropeAndCentralAsia int,
 	/* Single row constarins */
-    constraint _PK PRIMARY KEY (Lock),
-    constraint _CK CHECK (Lock='X')
+    constraint _PK_PositionInQS PRIMARY KEY (Lock),
+    constraint _CK_PositionInQS CHECK (Lock='X')
 );
 
