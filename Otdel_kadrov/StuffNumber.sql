@@ -1,0 +1,25 @@
+USE RatingsKNU;
+
+CREATE TABLE StuffNumber (
+	NumberOfAssistants int,
+	NumberOfTeachers int,
+	NumberOfHeadsofDepartment int,
+	NumberOfSeniorLecturers int,
+	NumberOfProfessors int,
+	NumberOfDocents int,
+    NumberOfTrainees int,
+	NumberOfDeputyDeans int,
+	NumberOfDeans int,
+	NumberOfAssistantViceRectors int,
+	NumberOfProRectors int,
+	NumberOfRectors int,
+	NumberOfDirectors int,
+    NumberOfHeadsAssistants int,
+	NumberOfStaffs int,
+	NumberOfDomesticWorkerAtTheRateOf int,
+	NumberOfExternakWorkerAtTheRateOf int,
+	NumberOfDomesticWorkerInHourlyPay int,
+	NumberOfExternakWorkerInHourlyPay int,
+	NumberOfCombineWithVPTZNANYHourlyPay int,
+	NumberOfWithoutPayment int,
+);
