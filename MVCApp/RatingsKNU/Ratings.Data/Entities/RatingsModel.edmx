@@ -1,0 +1,251 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="db5907cdf9c48b4ff98977a76500c0455bModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Faculties">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FullTimeFaculties">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="FacultyId" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="FacultyId" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Institutions">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SchoolsWithOneTwoAccreditationLevel">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UniversityStructureStatistics">
+          <Key>
+            <PropertyRef Name="FacultyId" />
+          </Key>
+          <Property Name="FacultyId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="NoOfDepartments" Type="int" />
+          <Property Name="NoOfDepartmentsHeadedByDoctorsProfessorsFullTime" Type="int" />
+          <Property Name="NoOfReleasingDepartments" Type="int" />
+          <Property Name="NoOfReleasingDepartmentsHeadedByDoctorsProfessorsFullTime" Type="int" />
+          <Property Name="NoOfSmallDepartmentsWithLessThanFiveTeachers" Type="int" />
+        </EntityType>
+        <Association Name="FK__FullTimeF__Facul__2C3393D0">
+          <End Role="Faculties" Type="Self.Faculties" Multiplicity="1" />
+          <End Role="FullTimeFaculties" Type="Self.FullTimeFaculties" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Faculties">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="FullTimeFaculties">
+              <PropertyRef Name="FacultyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Universit__Facul__276EDEB3">
+          <End Role="Faculties" Type="Self.Faculties" Multiplicity="1" />
+          <End Role="UniversityStructureStatistics" Type="Self.UniversityStructureStatistics" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Faculties">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UniversityStructureStatistics">
+              <PropertyRef Name="FacultyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="db5907cdf9c48b4ff98977a76500c0455bModelStoreContainer">
+          <EntitySet Name="Faculties" EntityType="Self.Faculties" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FullTimeFaculties" EntityType="Self.FullTimeFaculties" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Institutions" EntityType="Self.Institutions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SchoolsWithOneTwoAccreditationLevel" EntityType="Self.SchoolsWithOneTwoAccreditationLevel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UniversityStructureStatistics" EntityType="Self.UniversityStructureStatistics" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__FullTimeF__Facul__2C3393D0" Association="Self.FK__FullTimeF__Facul__2C3393D0">
+            <End Role="Faculties" EntitySet="Faculties" />
+            <End Role="FullTimeFaculties" EntitySet="FullTimeFaculties" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Universit__Facul__276EDEB3" Association="Self.FK__Universit__Facul__276EDEB3">
+            <End Role="Faculties" EntitySet="Faculties" />
+            <End Role="UniversityStructureStatistics" EntitySet="UniversityStructureStatistics" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="db5907cdf9c48b4ff98977a76500c0455bModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Faculty">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="FullTimeFaculties" Relationship="Self.FK__FullTimeF__Facul__2C3393D0" FromRole="Faculties" ToRole="FullTimeFaculties" />
+          <NavigationProperty Name="UniversityStructureStatistic" Relationship="Self.FK__Universit__Facul__276EDEB3" FromRole="Faculties" ToRole="UniversityStructureStatistics" />
+        </EntityType>
+        <EntityType Name="FullTimeFaculty">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="FacultyId" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FacultyId" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="Faculty" Relationship="Self.FK__FullTimeF__Facul__2C3393D0" FromRole="FullTimeFaculties" ToRole="Faculties" />
+        </EntityType>
+        <EntityType Name="Institution">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SchoolsWithOneTwoAccreditationLevel">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UniversityStructureStatistic">
+          <Key>
+            <PropertyRef Name="FacultyId" />
+          </Key>
+          <Property Name="FacultyId" Type="Guid" Nullable="false" />
+          <Property Name="NoOfDepartments" Type="Int32" />
+          <Property Name="NoOfDepartmentsHeadedByDoctorsProfessorsFullTime" Type="Int32" />
+          <Property Name="NoOfReleasingDepartments" Type="Int32" />
+          <Property Name="NoOfReleasingDepartmentsHeadedByDoctorsProfessorsFullTime" Type="Int32" />
+          <Property Name="NoOfSmallDepartmentsWithLessThanFiveTeachers" Type="Int32" />
+          <NavigationProperty Name="Faculty" Relationship="Self.FK__Universit__Facul__276EDEB3" FromRole="UniversityStructureStatistics" ToRole="Faculties" />
+        </EntityType>
+        <Association Name="FK__FullTimeF__Facul__2C3393D0">
+          <End Role="Faculties" Type="Self.Faculty" Multiplicity="1" />
+          <End Role="FullTimeFaculties" Type="Self.FullTimeFaculty" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Faculties">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="FullTimeFaculties">
+              <PropertyRef Name="FacultyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Universit__Facul__276EDEB3">
+          <End Role="Faculties" Type="Self.Faculty" Multiplicity="1" />
+          <End Role="UniversityStructureStatistics" Type="Self.UniversityStructureStatistic" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Faculties">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UniversityStructureStatistics">
+              <PropertyRef Name="FacultyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="RatingsConnString" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Faculties" EntityType="Self.Faculty" />
+          <EntitySet Name="FullTimeFaculties" EntityType="Self.FullTimeFaculty" />
+          <EntitySet Name="Institutions" EntityType="Self.Institution" />
+          <EntitySet Name="SchoolsWithOneTwoAccreditationLevels" EntityType="Self.SchoolsWithOneTwoAccreditationLevel" />
+          <EntitySet Name="UniversityStructureStatistics" EntityType="Self.UniversityStructureStatistic" />
+          <AssociationSet Name="FK__FullTimeF__Facul__2C3393D0" Association="Self.FK__FullTimeF__Facul__2C3393D0">
+            <End Role="Faculties" EntitySet="Faculties" />
+            <End Role="FullTimeFaculties" EntitySet="FullTimeFaculties" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Universit__Facul__276EDEB3" Association="Self.FK__Universit__Facul__276EDEB3">
+            <End Role="Faculties" EntitySet="Faculties" />
+            <End Role="UniversityStructureStatistics" EntitySet="UniversityStructureStatistics" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="db5907cdf9c48b4ff98977a76500c0455bModelStoreContainer" CdmEntityContainer="RatingsConnString">
+          <EntitySetMapping Name="Faculties">
+            <EntityTypeMapping TypeName="db5907cdf9c48b4ff98977a76500c0455bModel.Faculty">
+              <MappingFragment StoreEntitySet="Faculties">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FullTimeFaculties">
+            <EntityTypeMapping TypeName="db5907cdf9c48b4ff98977a76500c0455bModel.FullTimeFaculty">
+              <MappingFragment StoreEntitySet="FullTimeFaculties">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="FacultyId" ColumnName="FacultyId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Institutions">
+            <EntityTypeMapping TypeName="db5907cdf9c48b4ff98977a76500c0455bModel.Institution">
+              <MappingFragment StoreEntitySet="Institutions">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SchoolsWithOneTwoAccreditationLevels">
+            <EntityTypeMapping TypeName="db5907cdf9c48b4ff98977a76500c0455bModel.SchoolsWithOneTwoAccreditationLevel">
+              <MappingFragment StoreEntitySet="SchoolsWithOneTwoAccreditationLevel">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UniversityStructureStatistics">
+            <EntityTypeMapping TypeName="db5907cdf9c48b4ff98977a76500c0455bModel.UniversityStructureStatistic">
+              <MappingFragment StoreEntitySet="UniversityStructureStatistics">
+                <ScalarProperty Name="FacultyId" ColumnName="FacultyId" />
+                <ScalarProperty Name="NoOfDepartments" ColumnName="NoOfDepartments" />
+                <ScalarProperty Name="NoOfDepartmentsHeadedByDoctorsProfessorsFullTime" ColumnName="NoOfDepartmentsHeadedByDoctorsProfessorsFullTime" />
+                <ScalarProperty Name="NoOfReleasingDepartments" ColumnName="NoOfReleasingDepartments" />
+                <ScalarProperty Name="NoOfReleasingDepartmentsHeadedByDoctorsProfessorsFullTime" ColumnName="NoOfReleasingDepartmentsHeadedByDoctorsProfessorsFullTime" />
+                <ScalarProperty Name="NoOfSmallDepartmentsWithLessThanFiveTeachers" ColumnName="NoOfSmallDepartmentsWithLessThanFiveTeachers" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
