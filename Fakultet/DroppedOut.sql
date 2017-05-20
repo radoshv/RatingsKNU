@@ -1,4 +1,9 @@
-﻿CREATE TABLE [dbo].[DroppedOut]
+﻿
+USE RatingsKNU;
+GO
+
+-- WRONG
+CREATE TABLE [dbo].[DroppedOut]
 (
 	[Id] INT NOT NULL PRIMARY KEY, 
     [SpecName] VARCHAR(100) NULL, 

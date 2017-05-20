@@ -1,3 +1,7 @@
+
+USE RatingsKNU;
+GO
+
 create table LiveCost(
 RecordId int,
 UniId int,

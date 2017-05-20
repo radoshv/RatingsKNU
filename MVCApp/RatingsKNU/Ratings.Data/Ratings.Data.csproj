@@ -55,69 +55,34 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\Faculty.cs">
-      <DependentUpon>RatingsModel.tt</DependentUpon>
+    <Compile Include="Entities\BaseEntity.cs" />
+    <Compile Include="Entities\Faculty.cs" />
+    <Compile Include="Entities\Group.cs" />
+    <Compile Include="Entities\Index.cs" />
+    <Compile Include="Entities\IndexValue.cs" />
+    <Compile Include="Entities\ListLine.cs" />
+    <Compile Include="Migrations\201705201231318_Init.cs" />
+    <Compile Include="Migrations\201705201231318_Init.Designer.cs">
+      <DependentUpon>201705201231318_Init.cs</DependentUpon>
     </Compile>
-    <Compile Include="Entities\FullTimeFaculty.cs">
-      <DependentUpon>RatingsModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\Institution.cs">
-      <DependentUpon>RatingsModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\RatingsModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>RatingsModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\RatingsModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>RatingsModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\RatingsModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>RatingsModel.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\SchoolsWithOneTwoAccreditationLevel.cs">
-      <DependentUpon>RatingsModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\UniversityStructureStatistic.cs">
-      <DependentUpon>RatingsModel.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="RatingsContext.cs" />
+    <Compile Include="Enums\UnitOfMeasure.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\Interfaces\IGenericRepository.cs" />
-    <Compile Include="Repositories\StructuralItems\FacultiesRepository.cs" />
-    <Compile Include="Repositories\StructuralItems\InstitutionsRepository.cs" />
-    <Compile Include="Repositories\StructuralItems\SchoolsWithOneTwoAccreditationLevelRepository.cs" />
-    <Compile Include="Repositories\StructuralItems\UniversityStructureStatisticRepository.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-    <EntityDeploy Include="Entities\RatingsModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>RatingsModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="Entities\RatingsModel.edmx.diagram">
-      <DependentUpon>RatingsModel.edmx</DependentUpon>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <Content Include="Entities\RatingsModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>RatingsModel.edmx</DependentUpon>
-      <LastGenOutput>RatingsModel.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Entities\RatingsModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>RatingsModel.edmx</DependentUpon>
-      <LastGenOutput>RatingsModel.cs</LastGenOutput>
-    </Content>
+    <EmbeddedResource Include="Migrations\201705201231318_Init.resx">
+      <DependentUpon>201705201231318_Init.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

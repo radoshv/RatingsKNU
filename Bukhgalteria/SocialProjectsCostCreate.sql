@@ -1,3 +1,7 @@
+
+USE RatingsKNU;
+GO
+
 create table SocialProjectsCost(
 Recordid int, 
 UniId int,

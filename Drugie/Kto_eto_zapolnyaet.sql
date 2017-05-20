@@ -1,47 +1,48 @@
 -- Кто это заполняет
 
-USE RatingsKNU;
+USE db5907cdf9c48b4ff98977a76500c0455b;
 GO
 
 -- Кількість вищих начальних закладів І-ІІ рівнів акредитації
 create table SchoolsWithOneTwoAccreditationLevel (
-	Id int not null,
+	Id uniqueidentifier not null,
 	Name varchar(50) not null
 	constraint _PK_SchoolsWithOneTwoAccreditationLevel primary key (Id) 
 );
 
 -- Кількість інститутів
 create table Institutions (
-	Id int not null,
+	Id uniqueidentifier not null,
 	Name varchar(50) not null,
 	constraint _PK_Institutions primary key (Id) 
 );
 
 -- Кількість факультетів
 create table Faculties (
-	Id int not null,
+	Id uniqueidentifier not null,
 	Name varchar(50) not null,
 	constraint _PK_Faculties primary key (Id) 
 );
 
 -- Кількість факультетів денної форми навчання
 create table FullTimeFaculties (
-	Id int not null,
+	Id uniqueidentifier not null,
 	Name varchar(50) not null,
 	constraint _PK_FullTimeFaculties primary key (Id) 
 );
 
+alter table FullTimeFaculties
+add FacultyId uniqueidentifier not null foreign key references Faculties(Id);
+alter table FullTimeFaculties
+
 -- Структура вищого навчального закладу	
 create table UniversityStructureStatistics (
-	Lock char(1) not null DEFAULT 'X',
+	FacultyId uniqueidentifier not null primary key foreign key references Faculties(Id),
 	NoOfDepartments int, -- Кількість кафедр
 	NoOfDepartmentsHeadedByDoctorsProfessorsFullTime int, -- Кількість кафедр, які очолюють доктори наук, професори і працюють в штаті на повну ставку
 	NoOfReleasingDepartments int, -- Кількість випускаючих кафедр
 	NoOfReleasingDepartmentsHeadedByDoctorsProfessorsFullTime int, -- Кількість випускаючих кафедр, які очолюють професори, доктори наук і працюють в штаті на повну ставку
 	NoOfSmallDepartmentsWithLessThanFiveTeachers int -- Кількість малочисельних кафедр зі штатом 5 і менше викладачів
-	/* Single row constraints */
-    constraint _PK_RatingScores PRIMARY KEY (Lock),
-    constraint _CK_RatingScores CHECK (Lock='X')
 );
 
 -- Кількісь навчально-наукових комплексів
@@ -113,14 +114,17 @@ create table ArtAndSportAchivementsOfStudents (
     constraint _CK_RatingScores CHECK (Lock='X')
 );
 
+
+use RatingsKNU;
+Go
 -- Задоволеність студентів
 create table StudentsSatisfation (
-	Lock char(1) not null DEFAULT 'X',
+	Lock char(1) not null DEFAULT 'X' primary key,
 	PercentSatisfiedWithEducationQuality decimal(5,2), -- Відсоток студентів, що задоволені якістю навчання в університеті.
 	PercentStatisfiedWithQualityOfEducationalPrograms decimal(5,2) -- Відсоток студентів, які задоволені рівнем якості своїх освітніх програм.
 	/* Single row constraints */
-    constraint _PK_RatingScores PRIMARY KEY (Lock),
-    constraint _CK_RatingScores CHECK (Lock='X')
+    ----constraint _PK_RatingScores PRIMARY KEY (Lock),
+    --constraint _CK_RatingScores CHECK (Lock='X')
 );
 
 --create table TeachingQuality (

@@ -1,3 +1,6 @@
+USE RatingsKNU;
+GO
+
 create table FinancialSupport(
 RecordId int,
 UniId int,

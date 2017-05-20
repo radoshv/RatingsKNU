@@ -1,4 +1,8 @@
-﻿CREATE TABLE [dbo].[SpecialisationCapacity]
+﻿
+USE RatingsKNU;
+GO
+
+CREATE TABLE [dbo].[SpecialisationCapacity]
 (
 	[Id] INT NOT NULL PRIMARY KEY, 
     [Degree] VARCHAR(100) NULL, 

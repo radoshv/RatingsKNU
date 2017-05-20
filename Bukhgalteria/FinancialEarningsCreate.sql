@@ -1,3 +1,8 @@
+
+USE RatingsKNU;
+GO
+
+-- WRONGS
 create table FinancialEarnings(
 RecordId int,
 UniId int,

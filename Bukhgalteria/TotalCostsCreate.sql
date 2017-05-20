@@ -1,3 +1,7 @@
+
+USE RatingsKNU;
+GO
+
 create table TotalCosts(
 RecordId int,
 UniId int,

@@ -1,4 +1,8 @@
-﻿CREATE TABLE [dbo].[Table1]
+﻿
+USE RatingsKNU;
+GO
+
+CREATE TABLE [dbo].[Table1]
 (
 	[Id] INT NOT NULL PRIMARY KEY, 
     [SpecName] VARCHAR(100) NULL, 

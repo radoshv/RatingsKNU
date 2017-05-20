@@ -1,3 +1,7 @@
+
+USE RatingsKNU;
+GO
+
 create table PayPercentage(
 RecordId int,
 UniId int,
