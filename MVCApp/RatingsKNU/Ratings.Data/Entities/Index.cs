@@ -10,7 +10,6 @@ namespace Ratings.Data.Entities
     public class Index : BaseEntity // показник
     {
         public string Name { get; set; }
-        public decimal Value { get; set; }
         public UnitOfMeasure UOM { get; set; }
 
         // для показників, які залежать від інших показників

@@ -1,0 +1,41 @@
+﻿@model Ratings.Web.Areas.Admin.Models.IndexModel
+
+@{
+    ViewBag.Title = "Видалити показник";
+}
+
+<h2>Delete</h2>
+
+<h3>Ви впевнені що хочете видалити цей показник?</h3>
+<div>
+    <h4>Показник</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UOM)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UOM)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Назад до списку", "Index", new { groupId = Model.GroupId })
+        </div>
+    }
+</div>

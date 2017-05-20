@@ -14,6 +14,6 @@ namespace Ratings.Data.Entities
         public Guid? FacultyId { get; set; }
         public virtual Faculty Faculty {get; set; }
 
-        public decimal Value { get; set; }
+        public decimal? Value { get; set; }
     }
 }

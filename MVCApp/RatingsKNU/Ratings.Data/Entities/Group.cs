@@ -10,6 +10,6 @@ namespace Ratings.Data.Entities
     {
         public string Name { get; set; }
 
-        public virtual ICollection<Index> Indexes { get; set; } 
+        public virtual ICollection<Index> Indices { get; set; } 
     }
 }

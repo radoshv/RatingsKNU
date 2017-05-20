@@ -1,0 +1,34 @@
+﻿@model Ratings.Web.Areas.Admin.Models.IndexModel
+
+@{
+    ViewBag.Title = "Деталі";
+}
+
+<h2>Деталі</h2>
+
+<div>
+    <h4>Показник</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UOM)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UOM)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Редагувати", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Назад до списку", "Index", new {groupId = Model.GroupId})
+</p>
