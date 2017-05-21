@@ -10,6 +10,7 @@ namespace Ratings.Ninject
     {
         public override void Load()
         {
+            //todo inject dbcontext to ratingscontext
             Bind<RatingsContext>().ToSelf().InRequestScope();
 
             Bind<IFacultyRepository>().To<FacultyRepository>();

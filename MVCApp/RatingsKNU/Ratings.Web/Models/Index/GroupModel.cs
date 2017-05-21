@@ -9,6 +9,6 @@ namespace Ratings.Web.Models.Index
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
-        public ICollection<IndexModel> Indexes { get; set; }
+        public ICollection<IndexModel> Indices { get; set; }
     }
 }

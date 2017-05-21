@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Ratings.Data.Enums;
 
 namespace Ratings.Web.Models.Index
 {
@@ -12,6 +13,7 @@ namespace Ratings.Web.Models.Index
         public Guid GroupId { get; set; }
         public string Name { get; set; }
         public decimal? Value { get; set; }
+        public UnitOfMeasure UOM { get; set; }
 
         //public ICollection<> 
     }
