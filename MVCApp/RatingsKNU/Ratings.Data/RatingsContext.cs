@@ -8,13 +8,18 @@ namespace Ratings.Data
     public class RatingsContext : IdentityDbContext<ApplicationUser>
     {
         public RatingsContext()
-            : base("name=RatingsContext")
+            : base("name=DefaultConnection")
         {
         }
 
         static RatingsContext()
         {
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<RatingsContext, Configuration>());
+        }
+
+        public static RatingsContext Create()
+        {
+            return new RatingsContext();
         }
 
         public DbSet<Faculty> Faculties { get; set; }
