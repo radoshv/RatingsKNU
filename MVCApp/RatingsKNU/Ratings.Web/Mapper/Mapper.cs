@@ -4,11 +4,13 @@ using System.Linq;
 using System.Web;
 using Ratings.Data.Entities;
 using Ratings.Web.Models.Index;
+using Ratings.Web.Models.Rating;
 
 namespace Ratings.Web.Mapper
 {
     public class Mapper
     {
+        #region Map to model
         public IndexModel MapIndexToModel(Index index, IndexValue value)
         {
             return new IndexModel
@@ -39,6 +41,17 @@ namespace Ratings.Web.Mapper
             };
         }
 
+        public RatingModel MapRatingToModel(Rating rating)
+        {
+            return new RatingModel
+            {
+                Id = rating.Id,
+                Name = rating.Name
+            };
+        }
+        #endregion
+
+        #region Map to entity 
         public Index MapIndexToEntity(IndexModel model) //todo review
         {
             return new Index
@@ -58,5 +71,13 @@ namespace Ratings.Web.Mapper
             };
         }
 
+        public Rating MapRatingToEntity(RatingModel model)
+        {
+            return new Rating
+            {
+                Name = model.Name
+            };
+        }
+        #endregion
     }
 }

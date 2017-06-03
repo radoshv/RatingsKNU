@@ -1,10 +1,11 @@
 using System.Data.Entity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Ratings.Data.Entities;
 using Ratings.Data.Migrations;
 
 namespace Ratings.Data
 {
-    public class RatingsContext : DbContext
+    public class RatingsContext : IdentityDbContext<ApplicationUser>
     {
         public RatingsContext()
             : base("name=RatingsContext")
@@ -24,8 +25,8 @@ namespace Ratings.Data
         public DbSet<Rating> Ratings { get; set; }
 
 
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-        }
+        //protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        //{
+        //}
     }
 }

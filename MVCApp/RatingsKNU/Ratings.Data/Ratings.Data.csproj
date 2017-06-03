@@ -38,6 +38,12 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
     <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
       <Private>True</Private>
@@ -55,6 +61,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\ApplicationRole.cs" />
+    <Compile Include="Entities\ApplicationUser.cs" />
     <Compile Include="Entities\BaseEntity.cs" />
     <Compile Include="Entities\Faculty.cs" />
     <Compile Include="Entities\Group.cs" />
@@ -77,6 +85,10 @@
     <Compile Include="Migrations\201706031410045_RatingMigration.cs" />
     <Compile Include="Migrations\201706031410045_RatingMigration.Designer.cs">
       <DependentUpon>201706031410045_RatingMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706031901242_UserRoleMigration.cs" />
+    <Compile Include="Migrations\201706031901242_UserRoleMigration.Designer.cs">
+      <DependentUpon>201706031901242_UserRoleMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="RatingsContext.cs" />
@@ -112,6 +124,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201706031410045_RatingMigration.resx">
       <DependentUpon>201706031410045_RatingMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706031901242_UserRoleMigration.resx">
+      <DependentUpon>201706031901242_UserRoleMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

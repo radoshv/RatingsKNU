@@ -1,0 +1,30 @@
+﻿@model Ratings.Web.Models.Rating.RatingModel
+
+@{
+    ViewBag.Title = "Indices";
+}
+
+<h2>@Model.Name</h2>
+
+@Html.ActionLink("Завантажити Excel", "ToExcel", new { ratingId = Model.Id }, new { @class = "btn btn-primary" })
+
+@Html.BeginForm("Save", "Rating", FormMethod.Post)
+{
+    <table class="table">
+        @foreach (var index in Model.Indices)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => index.Name)
+                </td>
+                <td>
+                    @Html.EditorFor(modelItem => index.Value)
+                </td>
+            </tr>
+        }
+    </table>
+    <button type="submit">Зберегти</button>
+}
+<p>
+    @Html.ActionLink("Назад до списку", "Index")
+</p>

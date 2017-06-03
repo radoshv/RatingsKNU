@@ -18,6 +18,7 @@ namespace Ratings.Ninject
             Bind<IIndexRepository>().To<IndexRepository>();
             Bind<IIndexValueRepository>().To<IndexValueRepository>();
             Bind<IListLineRepository>().To<ListLineRepository>();
+            Bind<IRatingRepository>().To<RatingRepository>();
         }
     }
 }

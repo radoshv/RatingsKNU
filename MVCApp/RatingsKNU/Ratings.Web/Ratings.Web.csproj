@@ -215,14 +215,17 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\GroupController.cs" />
     <Compile Include="Areas\Admin\Controllers\IndexController.cs" />
+    <Compile Include="Areas\Admin\Controllers\RatingController.cs" />
     <Compile Include="Areas\Admin\Mapper.cs" />
     <Compile Include="Areas\Admin\Models\GroupModel.cs" />
     <Compile Include="Areas\Admin\Models\IndexModel.cs" />
     <Compile Include="Areas\Admin\Models\LineModel.cs" />
+    <Compile Include="Areas\Admin\Models\RatingModel.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IndexController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\RatingController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -235,6 +238,7 @@
     <Compile Include="Models\Index\IndexModel.cs" />
     <Compile Include="Models\Index\LineModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Rating\RatingModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -263,6 +267,11 @@
     <Content Include="Areas\Admin\Views\Index\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Index\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Index\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Rating\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Rating\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Rating\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Rating\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Rating\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -311,6 +320,8 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Index\Index.cshtml" />
     <Content Include="Views\Index\GroupedList.cshtml" />
+    <Content Include="Views\Rating\Index.cshtml" />
+    <Content Include="Views\Rating\Indices.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
