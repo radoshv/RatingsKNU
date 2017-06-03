@@ -9,6 +9,11 @@ namespace Ratings.Data.Entities
 {
     public class Index : BaseEntity // показник
     {
+        public Index()
+        {
+            Ratings = new HashSet<Rating>();
+        }
+
         public string Name { get; set; }
         public UnitOfMeasure UOM { get; set; }
 
@@ -19,5 +24,7 @@ namespace Ratings.Data.Entities
         // група, до якої належить показник
         public Guid GroupId { get; set; } 
         public virtual Group Group { get; set; }
+
+        public virtual ICollection<Rating> Ratings { get; set; } 
     }
 }

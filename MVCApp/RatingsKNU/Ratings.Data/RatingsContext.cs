@@ -21,6 +21,7 @@ namespace Ratings.Data
         public DbSet<Index> Indices { get; set; }
         public DbSet<IndexValue> IndexValues { get; set; }
         public DbSet<ListLine> ListLines { get; set; }
+        public DbSet<Rating> Ratings { get; set; }
 
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

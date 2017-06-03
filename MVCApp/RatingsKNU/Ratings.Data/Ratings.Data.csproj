@@ -61,6 +61,7 @@
     <Compile Include="Entities\Index.cs" />
     <Compile Include="Entities\IndexValue.cs" />
     <Compile Include="Entities\ListLine.cs" />
+    <Compile Include="Entities\Rating.cs" />
     <Compile Include="Migrations\201705201231318_Init.cs" />
     <Compile Include="Migrations\201705201231318_Init.Designer.cs">
       <DependentUpon>201705201231318_Init.cs</DependentUpon>
@@ -73,6 +74,10 @@
     <Compile Include="Migrations\201705201953168_ValueNullable.Designer.cs">
       <DependentUpon>201705201953168_ValueNullable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201706031410045_RatingMigration.cs" />
+    <Compile Include="Migrations\201706031410045_RatingMigration.Designer.cs">
+      <DependentUpon>201706031410045_RatingMigration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="RatingsContext.cs" />
     <Compile Include="Enums\UnitOfMeasure.cs" />
@@ -84,6 +89,7 @@
     <Compile Include="Repositories\IndexRepository.cs" />
     <Compile Include="Repositories\IndexValueRepository.cs" />
     <Compile Include="Repositories\ListLineRepository.cs" />
+    <Compile Include="Repositories\RatingRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
@@ -103,6 +109,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201705201953168_ValueNullable.resx">
       <DependentUpon>201705201953168_ValueNullable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706031410045_RatingMigration.resx">
+      <DependentUpon>201706031410045_RatingMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
