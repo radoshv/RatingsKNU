@@ -68,5 +68,12 @@ namespace Ratings.Web.Controllers
 
             return models;
         } 
+        [HttpPost]
+        public ActionResult Index(IEnumerable<Ratings.Web.Models.Index.IndexModel> md)
+        {
+           
+            return View();
+        }
     }
+
 }
