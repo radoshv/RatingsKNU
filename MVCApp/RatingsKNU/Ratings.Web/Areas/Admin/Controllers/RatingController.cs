@@ -9,17 +9,20 @@ using System.Web.Mvc;
 using Ratings.Data;
 using Ratings.Data.Repositories;
 using Ratings.Web.Areas.Admin.Models;
+using Ratings.Data.Entities;
 
 namespace Ratings.Web.Areas.Admin.Controllers
 {
     public class RatingController : Controller
     {
         private readonly IRatingRepository _ratingRepository;
+        private readonly IIndexRepository _indexRepository;
         private readonly Mapper _mapper;
 
-        public RatingController(IRatingRepository ratingRepository)
+        public RatingController(IRatingRepository ratingRepository, IIndexRepository indexRepository)
         {
             _ratingRepository = ratingRepository;
+            _indexRepository = indexRepository;
             _mapper = new Mapper();
         }
 
@@ -88,11 +91,26 @@ namespace Ratings.Web.Areas.Admin.Controllers
                 .FirstOrDefault();
             var model = _mapper.MapRatingToModel(entity);
 
-            if (model == null)
+            var indices = GetAllIndices();
+            var checkedModels = indices.Select(i => new CheckedIndexModel
             {
-                return HttpNotFound();
-            }
-            return View(model);
+                Checked = i.Ratings.Any (r => r.Id == id),
+                Id = i.Id,
+                GroupId  = i.GroupId,
+                Name = i.Name,
+                GroupName = i.Group.Name,
+                ParentId = i.ParentId,
+                UOM = i.UOM
+            }).ToList();
+
+            var editModel = new EditRatingModel
+            {
+                Id = model.Id,
+                Name = model.Name,
+                CheckedIndexModels = checkedModels
+            };
+
+            return View(editModel);
         }
 
         // POST: Admin/Rating/Edit/5
@@ -100,7 +118,7 @@ namespace Ratings.Web.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name")] RatingModel ratingModel)
+        public ActionResult Edit(EditRatingModel ratingModel)
         {
             if (ModelState.IsValid)
             {
@@ -146,5 +164,14 @@ namespace Ratings.Web.Areas.Admin.Controllers
         {
             throw new NotImplementedException();
         }
+
+        private IEnumerable<Index> GetAllIndices(Predicate<Index> filter = null)
+        {
+            var indices = _indexRepository.GetAll().ToList();
+            if (filter != null)
+                indices = indices.Where(i => filter(i)).ToList();
+
+            return indices;
+        } 
     }
 }
