@@ -11,6 +11,7 @@ namespace Ratings.Web.Areas.Admin.Models
         public Guid Id { get; set; }
         public Guid? ParentId { get; set; }
         public Guid GroupId { get; set; }
+        public string GroupName { get; set; }
         public string Name { get; set; }
         public UnitOfMeasure UOM { get; set; }
     }

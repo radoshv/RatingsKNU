@@ -218,6 +218,8 @@
     <Compile Include="Areas\Admin\Controllers\IndexController.cs" />
     <Compile Include="Areas\Admin\Controllers\RatingController.cs" />
     <Compile Include="Areas\Admin\Mapper.cs" />
+    <Compile Include="Areas\Admin\Models\CheckedIndexModel.cs" />
+    <Compile Include="Areas\Admin\Models\EditRatingModel.cs" />
     <Compile Include="Areas\Admin\Models\GroupModel.cs" />
     <Compile Include="Areas\Admin\Models\IndexModel.cs" />
     <Compile Include="Areas\Admin\Models\LineModel.cs" />
@@ -270,8 +272,9 @@
     <Content Include="Areas\Admin\Views\Rating\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Rating\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\Rating\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\Rating\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Rating\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Rating\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Rating\EditorTemplates\CheckedIndexModel.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

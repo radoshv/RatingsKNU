@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Net;
-using System.Web;
-using System.Web.Mvc;
-using Ratings.Data;
+﻿using Ratings.Data.Enums;
 using Ratings.Data.Repositories;
 using Ratings.Web.Areas.Admin.Models;
+using System;
+using System.Data;
+using System.Linq;
+using System.Net;
+using System.Web.Mvc;
 
 namespace Ratings.Web.Areas.Admin.Controllers
 {
@@ -16,13 +13,15 @@ namespace Ratings.Web.Areas.Admin.Controllers
     {
         private readonly IIndexRepository _indexRepository;
         private readonly IGroupRepository _groupRepository;
+        private readonly IRatingRepository _ratingRepository;
         private readonly Mapper _mapper;
 
 
-        public IndexController(IIndexRepository indexRepository, IGroupRepository groupRepository)
+        public IndexController(IIndexRepository indexRepository, IGroupRepository groupRepository, IRatingRepository ratingRepository)
         {
             _indexRepository = indexRepository;
             _groupRepository = groupRepository;
+            _ratingRepository = ratingRepository;
             _mapper = new Mapper();
         }
 
@@ -44,7 +43,31 @@ namespace Ratings.Web.Areas.Admin.Controllers
             ViewBag.GroupId = groupId;
             ViewBag.GroupTitle = group.Name;
 
+            var groups = _groupRepository.GetAll().ToList();
+            var groupModels = groups.Select(_mapper.MapGroupToModel).ToList();
+            var zeroOption = new GroupModel
+            {
+                Id = new Guid(),
+                Name = "Обрати"
+            };
+            groupModels.Insert(0, zeroOption);
+
+            ViewBag.GroupList = groupModels;
+
             return View(indices);
+        }
+        [HttpPost]
+        public ActionResult Index(string GroupId, string Name, string UOM)
+        {
+            IndexModel IM = new IndexModel();
+
+            IM.GroupId = new Guid(GroupId);
+            IM.Name = Name;
+            IM.UOM = (UnitOfMeasure)Enum.Parse(typeof(UnitOfMeasure),UOM);
+            var entity = _mapper.MapIndexToEntity(IM);
+            _indexRepository.Add(entity);
+            _indexRepository.Save();
+            return RedirectToAction("Index", new { groupId = GroupId });
         }
 
         // GET: Admin/Index/Details/5

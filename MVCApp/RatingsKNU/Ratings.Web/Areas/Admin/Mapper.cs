@@ -13,6 +13,8 @@ namespace Ratings.Web.Areas.Admin
             {
                 Id = index.Id,
                 Name = index.Name,
+                GroupId = index.GroupId,
+                GroupName = index.Group.Name,
                 ParentId = index.ParentId,
             };
         }

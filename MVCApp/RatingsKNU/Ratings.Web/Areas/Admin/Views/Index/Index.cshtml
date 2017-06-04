@@ -6,42 +6,77 @@
 
 <h2>Показники групи @ViewBag.GroupTitle</h2>
 
+
 <p>
-    @Html.ActionLink("Додати показник", "Create", new {groupId = ViewBag.GroupId})
+    @Html.ActionLink("Додати показник", "Create", new { groupId = ViewBag.GroupId })
 </p>
 <table class="table">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.ParentId)
-        </th>
         <th>
             @Html.DisplayNameFor(model => model.Name)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.UOM)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GroupId)
+        </th>
         <th></th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.ParentId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UOM)
-        </td>
-        <td>
-            @Html.ActionLink("Редагувати", "Edit", new {id = item.Id}) |
-            @Html.ActionLink("Деталі", "Details", new {id = item.Id}) |
-            @Html.ActionLink("Видалити", "Delete", new {id = item.Id})
-        </td>
-        <td></td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UOM)
+            </td>
+            <td>
+                @Html.DropDownListFor(modelItem => item.GroupId, 
+               new SelectList(ViewBag.GroupList, "Id", "Name", item.GroupId))
+            </td>
+            <td>
+                @Html.ActionLink("Редагувати", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Деталі", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Видалити", "Delete", new { id = item.Id })
+            </td>
+            <td></td>
+        </tr>
+    }
+
+    @using (Html.BeginForm())
+    {
+        <tr style="border-bottom: 0; border-top-width: 2px">
+            <td>
+                <input name="GroupId" type="hidden" value="@ViewBag.GroupId">
+                Додати новий індекс
+            </td>
+            <td>
+                <input name="Name" type="text" class="form-control" placeholder="Назва">
+
+            </td>
+            <td>
+                @*<input name="UO" type="text" class="form-control">*@
+                <select name="UOM" class="form-control">
+                    <option value="Item">
+                        item
+                    </option>
+                    <option value="Percent">
+                        percent
+                    </option>
+                    <option value="UAH">
+                        UAH
+                    </option>
+                </select>
+            </td>
+            <td>
+                <input type="submit" class="btn btn-default">
+            </td>
+            <td></td>
+        </tr>
+    }
 
 </table>
