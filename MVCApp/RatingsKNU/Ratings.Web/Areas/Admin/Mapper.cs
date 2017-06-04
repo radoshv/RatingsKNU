@@ -25,6 +25,14 @@ namespace Ratings.Web.Areas.Admin
                 Name = group.Name
             };
         }
+        public RatingModel MapRatingToModel(Rating group)
+        {
+            return new RatingModel
+            {
+                Id = group.Id,
+                Name = group.Name
+            };
+        }
 
         public LineModel MapLineToModel(ListLine line)
         {
@@ -51,6 +59,13 @@ namespace Ratings.Web.Areas.Admin
             return new Group
             {
                 Name = group.Name
+            };
+        }
+        public Rating MapRatingToEntity(RatingModel rating)
+        {
+            return new Rating
+            {
+                Name = rating.Name
             };
         }
     }

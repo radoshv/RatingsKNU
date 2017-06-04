@@ -6,15 +6,14 @@ using System.Threading.Tasks;
 
 namespace Ratings.Data.Entities
 {
-    public class Group : BaseEntity
+    public class Rating : BaseEntity
     {
-        public Group()
+        public Rating()
         {
             Indices = new HashSet<Index>();
         }
-
         public string Name { get; set; }
 
-        public virtual ICollection<Index> Indices { get; set; } 
+        public virtual ICollection<Index> Indices { get; set; }
     }
 }

@@ -6,7 +6,11 @@
 
 <h2>Index</h2>
 
+<<<<<<< HEAD
 @Html.BeginForm()
+=======
+@Html.BeginForm() {
+>>>>>>> 723e990c0c0d9583586f8902e1656cd6d81c0a95
 <table class="table">
     <tr>
         <th>
@@ -17,6 +21,7 @@
         </th>
     </tr>
 
+<<<<<<< HEAD
 @foreach (var item in Model) {
     <tr>
         <td>
@@ -27,5 +32,20 @@
         </td>
     </tr>
 }
+=======
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.EditorFor(modelItem => item.Value)
+            </td>
+        </tr>
+    }
+    }
+
+>>>>>>> 723e990c0c0d9583586f8902e1656cd6d81c0a95
 
 </table>
