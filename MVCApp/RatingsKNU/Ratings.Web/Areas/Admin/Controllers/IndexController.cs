@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Net;
-using System.Web;
-using System.Web.Mvc;
-using Ratings.Data;
+﻿using Ratings.Data.Enums;
 using Ratings.Data.Repositories;
 using Ratings.Web.Areas.Admin.Models;
+using System;
+using System.Data;
+using System.Linq;
+using System.Net;
+using System.Web.Mvc;
 
 namespace Ratings.Web.Areas.Admin.Controllers
 {
@@ -45,6 +42,19 @@ namespace Ratings.Web.Areas.Admin.Controllers
             ViewBag.GroupTitle = group.Name;
 
             return View(indices);
+        }
+        [HttpPost]
+        public ActionResult Index(string GroupId, string Name, string UOM)
+        {
+                IndexModel IM = new IndexModel();
+
+            IM.GroupId = new Guid(GroupId);
+            IM.Name = Name;
+            IM.UOM = (UnitOfMeasure)Enum.Parse(typeof(UnitOfMeasure),UOM);
+                var entity = _mapper.MapIndexToEntity(IM);
+                _indexRepository.Add(entity);
+                _indexRepository.Save();
+                return RedirectToAction("Index", new { groupId = GroupId });
         }
 
         // GET: Admin/Index/Details/5
