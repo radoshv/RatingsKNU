@@ -71,8 +71,34 @@ namespace Ratings.Web.Controllers
         [HttpPost]
         public ActionResult Index(IEnumerable<Ratings.Web.Models.Index.IndexModel> md)
         {
-           
-            return View();
+           foreach(var item in md)
+            {
+                try
+                {
+                    var entity = _indexValueRepository.FindBy(i => i.IndexId == item.Id && i.FacultyId == _currFaculty.Id).FirstOrDefault();
+                    if (entity == null)
+                    {
+                        entity = new IndexValue();
+
+                        _indexValueRepository.Add(entity);
+                        entity.Value = item.Value;
+                        entity.Id = item.Id;
+                        entity.FacultyId = _currFaculty.Id;
+                        _indexValueRepository.Save();
+
+                    }
+                    else
+                    {
+                        _indexValueRepository.Edit(entity);
+                        entity.Value = item.Value;
+                        
+                        _indexValueRepository.Save();
+                    }
+                }
+                catch {}
+                
+            }
+            return RedirectToAction("Index");
         }
     }
 

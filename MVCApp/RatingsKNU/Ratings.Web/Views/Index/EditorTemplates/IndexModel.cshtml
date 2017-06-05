@@ -6,5 +6,9 @@
     <td>
         @Html.EditorFor(model => model.Value)
     </td>
+    @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.GroupId)
+    @Html.HiddenFor(model => model.Name)
+
 </tr>
 

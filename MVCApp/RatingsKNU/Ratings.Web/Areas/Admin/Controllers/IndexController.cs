@@ -67,6 +67,7 @@ namespace Ratings.Web.Areas.Admin.Controllers
             var entity = _mapper.MapIndexToEntity(IM);
             _indexRepository.Add(entity);
             _indexRepository.Save();
+            
             return RedirectToAction("Index", new { groupId = GroupId });
         }
 
