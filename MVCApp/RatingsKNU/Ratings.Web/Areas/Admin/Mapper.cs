@@ -70,5 +70,6 @@ namespace Ratings.Web.Areas.Admin
                 Name = rating.Name
             };
         }
+
     }
 }

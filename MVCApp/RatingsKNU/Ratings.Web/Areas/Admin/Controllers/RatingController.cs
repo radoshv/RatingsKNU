@@ -122,7 +122,13 @@ namespace Ratings.Web.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                var entity = _ratingRepository.FindBy(m => m.Id == ratingModel.Id).First();
+                var entity = _ratingRepository.FindBy(r => r.Id == ratingModel.Id).FirstOrDefault();
+                if (entity == null) return HttpNotFound();
+
+                entity.Name = ratingModel.Name;
+
+                UpdateCheckedIndices(ratingModel.CheckedIndexModels, entity);
+
                 _ratingRepository.Edit(entity);
                 _ratingRepository.Save();
                 return RedirectToAction("Index");
@@ -172,6 +178,27 @@ namespace Ratings.Web.Areas.Admin.Controllers
                 indices = indices.Where(i => filter(i)).ToList();
 
             return indices;
-        } 
+        }
+
+        private void UpdateCheckedIndices(IEnumerable<CheckedIndexModel> checkedModels, Rating rating)
+        {
+            foreach (var checkedModel in checkedModels)
+            {
+                if (checkedModel.Checked && rating.Indices.All(i => i.Id != checkedModel.Id)) // added new element
+                {
+                    var entity = _indexRepository.FindBy(i => i.Id == checkedModel.Id).First();
+                    rating.Indices.Add(entity);
+                    entity.Ratings.Add(rating);
+                }
+                else if (!checkedModel.Checked && rating.Indices.Any(i => i.Id == checkedModel.Id)) // removed element
+                {
+                    var entity = _indexRepository.FindBy(i => i.Id == checkedModel.Id).First();
+                    rating.Indices.Remove(entity);
+                    entity.Ratings.Remove(rating);
+                }
+            }
+
+            _indexRepository.Save();
+        }
     }
 }

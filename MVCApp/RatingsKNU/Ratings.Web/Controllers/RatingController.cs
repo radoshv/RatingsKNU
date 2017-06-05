@@ -75,7 +75,10 @@ namespace Ratings.Web.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
             // excel code
-            throw new NotImplementedException();
+            var rating = _ratingRepository.FindBy(r => r.Id == ratingId.Value).FirstOrDefault();
+            var values = _indexValueRepository.FindBy(v => v.FacultyId == _currFaculty.Id).ToList();
+            ExportExcel.ExportRatingsToExel(values, rating);
+            return RedirectToAction("Index");
         }
 
         private IEnumerable<IndexModel> GetAllIndexModels(Predicate<Index> filter)
