@@ -1,0 +1,14 @@
+﻿@model Ratings.Web.Models.Index.IndexModel
+<tr>
+    <td>
+        @Html.DisplayFor(model => model.Name)
+    </td>
+    <td>
+        @Html.EditorFor(model => model.Value)
+    </td>
+    @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.GroupId)
+    @Html.HiddenFor(model => model.Name)
+
+</tr>
+

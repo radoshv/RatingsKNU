@@ -7,12 +7,19 @@
 <h2>Заповнення показників</h2>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 @Html.BeginForm()
 =======
 @Html.BeginForm() {
 >>>>>>> 723e990c0c0d9583586f8902e1656cd6d81c0a95
 <table class="table1 table table-striped table-bordered table-condensed">
     <tr class="danger">
+=======
+@using (Html.BeginForm())
+{
+<table class="table">
+    <tr>
+>>>>>>> d6d9f52995368b393724ed24bfc13e6cc60495b8
         <th>
             @Html.DisplayNameFor(model => model.Name)
         </th>
@@ -20,32 +27,11 @@
             @Html.DisplayNameFor(model => model.Value)
         </th>
     </tr>
+    
+@Html.EditorForModel()
 
-<<<<<<< HEAD
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.EditorFor(modelItem => item.Value)
-        </td>
-    </tr>
-}
-=======
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.EditorFor(modelItem => item.Value)
-            </td>
-        </tr>
-    }
-    }
 
->>>>>>> 723e990c0c0d9583586f8902e1656cd6d81c0a95
 
 </table>
+<input type="submit" name="knopka" value="Save" />
+}
