@@ -1,0 +1,22 @@
+﻿body {
+    background-color:lightgrey;
+}
+
+.header1 {
+    background-color: rgb(137, 6, 11);
+}
+
+.login{
+    padding-left: 30px;
+    text-align:right;
+}
+
+.table1 {
+    border: solid;
+    border-color: rgb(137, 6, 11);
+}
+
+.table2{
+    border:solid;
+    border-color: white;
+}
