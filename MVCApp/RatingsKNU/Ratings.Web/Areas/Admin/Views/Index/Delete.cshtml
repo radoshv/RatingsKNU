@@ -4,11 +4,11 @@
     ViewBag.Title = "Видалити показник";
 }
 
-<h2>Delete</h2>
+
 
 <h3>Ви впевнені що хочете видалити цей показник?</h3>
 <div>
-    <h4>Показник</h4>
+    <h4></h4>
     <hr />
     <dl class="dl-horizontal">
 
@@ -33,9 +33,14 @@
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
 
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Назад до списку", "Index", new { groupId = Model.GroupId })
+        <div class="divtoinputIndexDelete form-actions no-color">
+            <input type="submit" value="Видалити" class="btn btn-default" /> 
         </div>
+
+        <br/>
+    
+    <div>
+        @Html.ActionLink("Назад до списку", "Index", new { groupId = Model.GroupId })
+    </div>
     }
 </div>

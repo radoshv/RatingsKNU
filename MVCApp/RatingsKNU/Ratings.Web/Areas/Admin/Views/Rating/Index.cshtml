@@ -1,14 +1,14 @@
 ﻿@model IEnumerable<Ratings.Web.Areas.Admin.Models.RatingModel>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Редагування рейтингів";
 }
 
-<h2>Index</h2>
+<h2>Редагування рейтингів</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+    @Html.ActionLink("Додати новий", "Create")
+</p><br/>
 <table class="table">
     <tr>
         <th>
@@ -23,9 +23,9 @@
             @Html.DisplayFor(modelItem => item.Name)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Html.ActionLink("Редагувати", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Деталі", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Видалити", "Delete", new { id=item.Id })
         </td>
     </tr>
 }

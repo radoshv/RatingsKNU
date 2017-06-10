@@ -1,14 +1,14 @@
 ﻿@model Ratings.Web.Areas.Admin.Models.GroupModel
 
 @{
-    ViewBag.Title = "Видалення";
+    ViewBag.Title = "Видалення груп";
 }
 
 <h2>Видалення</h2>
 
 <h3>Ви впевнені що хочете видалити групу @Model.Name?</h3>
 <div>
-    <h4>GroupModel</h4>
+    <h4></h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -24,8 +24,13 @@
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
 
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
+        <div class="divtoinputGroupDelete form-actions no-color">
+            <input type="submit" value="Видалити" class="btn btn-default" /> 
+        </div>
+
+        <br />
+
+        <div>
             @Html.ActionLink("Назад до списку", "Index")
         </div>
     }
