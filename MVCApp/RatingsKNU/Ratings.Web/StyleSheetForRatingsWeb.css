@@ -3,7 +3,7 @@
 }
 
 .header1 {
-    background-color: rgb(137, 6, 11);
+    background-color: rgb(105, 12, 34);
 }
 
 .login{
@@ -14,12 +14,12 @@
 
 
 table {
-    font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     font-size: 14px;
     text-align: left;
     border-collapse: collapse;
     border-radius: 20px;
-    box-shadow: 0 0 0 10px rgb(137, 6, 11);
+    box-shadow: 0 0 0 10px rgb(105, 12, 34);
     color: #452F21;
 }
 
@@ -37,17 +37,38 @@ table th:last-child {
 }
 
 td {
-    border-top: 10px solid rgb(137, 6, 11);
+    border-top: 10px solid rgb(105, 12, 34);
     padding: 8px;
     background: white;
 }
 
-table td:first-child {
+/*table td:first-child {
     border-bottom-left-radius: 20px;
-}
+}*/
 
 table td:last-child {
     border-bottom-right-radius: 20px;
 }
 
+body > div.container.body-content > form > table > tbody > tr:last-child > td:nth-child(2){
+    border-bottom-right-radius: 20px;
 
+}
+body > div.container.body-content > form > table > tbody > tr:last-child > td:nth-child(1){
+    border-bottom-left-radius:20px;
+}
+body > div.header1.navbar.navbar-inverse.navbar-fixed-top > div > div.navbar-collapse.collapse > ul > li > a{
+    color:#eadbdb !important;
+}
+body > div.header1.navbar.navbar-inverse.navbar-fixed-top > div > div.navbar-collapse.collapse > ul > li > a:hover{
+    
+    background-color: rgb(60, 8, 20);
+    /*border-radius:10px;*/
+}
+.navbar-brand{
+    color:#eadbdb !important;
+}
+.navbar-brand:hover{
+    background-color: rgb(60, 8, 20) !important;
+    /*border-radius:10px;*/
+}

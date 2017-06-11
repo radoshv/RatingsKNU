@@ -80,24 +80,29 @@ namespace Ratings.Web.Controllers
                     {
                         entity = new IndexValue();
 
-                        _indexValueRepository.Add(entity);
                         entity.Value = item.Value;
                         entity.Id = item.Id;
                         entity.FacultyId = _currFaculty.Id;
+                        entity.IndexId = item.Id;
+                        _indexValueRepository.Add(entity);
+
                         _indexValueRepository.Save();
 
                     }
                     else
                     {
-                        _indexValueRepository.Edit(entity);
                         entity.Value = item.Value;
-                        
+                        _indexValueRepository.Edit(entity);
+
                         _indexValueRepository.Save();
                     }
                 }
-                catch {}
+                catch(Exception e) {
+                    return HttpNotFound(e.Message);
+                }
                 
             }
+           
             return RedirectToAction("Index");
         }
     }
