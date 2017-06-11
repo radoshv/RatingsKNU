@@ -1,14 +1,27 @@
 ﻿@model Ratings.Web.Areas.Admin.Models.CheckedIndexModel
 
 <div>
-    @Html.EditorFor(m => m.Checked)
-    @Html.HiddenFor(p => p.Id)
-    @Html.HiddenFor(p => p.ParentId)
-    @Html.HiddenFor(p => p.GroupId)
-    @Html.HiddenFor(p => p.GroupName)
-    @Html.DisplayFor(p => p.GroupName)
-    @Html.HiddenFor(p => p.Name)
-    @Html.DisplayFor(p => p.Name)
-    @Html.HiddenFor(p => p.UOM)
+    <table class="tableC table table-striped table-bordered">
+        <tr>
+            <td id="tdC">
+                @Html.EditorFor(m => m.Checked)
+                @Html.HiddenFor(p => p.Id)
+                @Html.HiddenFor(p => p.ParentId)
+                @Html.HiddenFor(p => p.GroupId)
+                @Html.HiddenFor(p => p.Name)
+                @Html.HiddenFor(p => p.UOM)
+            </td>
+            <td>
+                @Html.HiddenFor(p => p.GroupName)
+                @Html.DisplayFor(p => p.GroupName)
+            </td>
+            <td>
+                @Html.HiddenFor(p => p.Name)
+                @Html.DisplayFor(p => p.Name)
+            </td>
+        </tr>
+
+
+    </table>
     @*<input type="submit" value="Compare" />*@
 </div>
