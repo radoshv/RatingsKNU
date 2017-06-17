@@ -4,7 +4,7 @@
     <table class="tableC table table-striped table-bordered">
         <tr>
             <td id="tdC">
-                @Html.EditorFor(m => m.Checked)
+                @Html.EditorFor(m => m.Checked, new { @class = "form-control" })
                 @Html.HiddenFor(p => p.Id)
                 @Html.HiddenFor(p => p.ParentId)
                 @Html.HiddenFor(p => p.GroupId)

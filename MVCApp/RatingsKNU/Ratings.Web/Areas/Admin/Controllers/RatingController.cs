@@ -129,8 +129,8 @@ namespace Ratings.Web.Areas.Admin.Controllers
                 AddedDate = g.AddedDate,
                 Name = g.Name,
                 Id = g.Id,
-                CheckedIndexModels = ind.Where(i => i.GroupId == g.Id).ToList()
-            }).ToList();
+                CheckedIndexModels = ind.Where(i => i.GroupId == g.Id).OrderBy(i => i.AddedDate).ToList()
+            }).OrderBy(g => g.AddedDate).ToList();
             return groupmodels;
         } 
 

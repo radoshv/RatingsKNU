@@ -39,18 +39,7 @@
         </tr>
     </table>
 
-        foreach (var group in Model.CheckedGroupModels)
-        {
-            <tr>
-                <th colspan="2">
-                    <div class="centertext">
-                        @Html.DisplayFor(modelItem => group.Name, new { @class = "centertext" })
-
-                    </div>
-                </th>
-            </tr>
-            @Html.EditorFor(model => group.CheckedIndexModels)
-        }
+        @Html.EditorFor(model => model.CheckedGroupModels)
 
 }
 <br/>

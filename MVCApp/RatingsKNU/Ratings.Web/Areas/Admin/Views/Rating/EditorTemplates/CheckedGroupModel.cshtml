@@ -1,0 +1,11 @@
+﻿@model Ratings.Web.Areas.Admin.Models.CheckedGroupModel
+
+<tr>
+    <th colspan="2">
+        <div class="centertext">
+            @Html.DisplayFor(modelItem => Model.Name, new { @class = "centertext" })
+
+        </div>
+    </th>
+</tr>
+@Html.EditorFor(model => Model.CheckedIndexModels)
