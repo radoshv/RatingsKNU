@@ -15,6 +15,7 @@ namespace Ratings.Web.Models.Index
         public decimal? Value { get; set; }
         public UnitOfMeasure UOM { get; set; }
 
-        //public ICollection<> 
+        public DateTime AddedDate { get; set; }
+
     }
 }

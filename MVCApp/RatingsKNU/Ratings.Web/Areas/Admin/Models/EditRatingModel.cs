@@ -9,6 +9,6 @@ namespace Ratings.Web.Areas.Admin.Models
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
-        public IList<CheckedIndexModel> CheckedIndexModels { get; set; }
+        public ICollection<CheckedGroupModel> CheckedGroupModels { get; set; }
     }
 }

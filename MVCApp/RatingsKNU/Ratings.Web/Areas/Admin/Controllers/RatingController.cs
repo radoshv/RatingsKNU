@@ -4,12 +4,14 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Runtime.Versioning;
 using System.Web;
 using System.Web.Mvc;
 using Ratings.Data;
 using Ratings.Data.Repositories;
 using Ratings.Web.Areas.Admin.Models;
 using Ratings.Data.Entities;
+using IndexModel = Ratings.Web.Models.Index.IndexModel;
 
 namespace Ratings.Web.Areas.Admin.Controllers
 {
@@ -17,12 +19,15 @@ namespace Ratings.Web.Areas.Admin.Controllers
     {
         private readonly IRatingRepository _ratingRepository;
         private readonly IIndexRepository _indexRepository;
+        private readonly IGroupRepository _groupRepository;
         private readonly Mapper _mapper;
 
-        public RatingController(IRatingRepository ratingRepository, IIndexRepository indexRepository)
+        public RatingController(IRatingRepository ratingRepository, IIndexRepository indexRepository,
+            IGroupRepository groupRepository)
         {
             _ratingRepository = ratingRepository;
             _indexRepository = indexRepository;
+            _groupRepository = groupRepository;
             _mapper = new Mapper();
         }
 
@@ -89,28 +94,75 @@ namespace Ratings.Web.Areas.Admin.Controllers
             var entity = _ratingRepository
                 .FindBy(g => g.Id == id)
                 .FirstOrDefault();
-            var model = _mapper.MapRatingToModel(entity);
-
-            var indices = GetAllIndices();
-            var checkedModels = indices.Select(i => new CheckedIndexModel
-            {
-                Checked = i.Ratings.Any (r => r.Id == id),
-                Id = i.Id,
-                GroupId  = i.GroupId,
-                Name = i.Name,
-                GroupName = i.Group.Name,
-                ParentId = i.ParentId,
-                UOM = i.UOM
-            }).ToList();
+            if (entity == null)
+                return HttpNotFound();
 
             var editModel = new EditRatingModel
             {
-                Id = model.Id,
-                Name = model.Name,
-                CheckedIndexModels = checkedModels
+                Id = entity.Id,
+                Name = entity.Name,
+                CheckedGroupModels = GetCheckedGroupModels(entity)
             };
 
             return View(editModel);
+        }
+
+        private ICollection<CheckedGroupModel> GetCheckedGroupModels(Rating rating)
+        {
+            var indices = _indexRepository.GetAll().ToList();
+            var groups = _groupRepository.GetAll().ToList();
+
+            var ind = indices.Select(i => new CheckedIndexModel
+                  {
+                      Id = i.Id,
+                      AddedDate = i.AddedDate,
+                      Checked = rating.Indices.Contains(i),
+                      GroupId = i.GroupId,
+                      GroupName = i.Group.Name,
+                      Name = i.Name,
+                      ParentId = i.ParentId,
+                      UOM = i.UOM
+                  }).ToList();
+
+            var groupmodels = groups.Select(g => new CheckedGroupModel
+            {
+                AddedDate = g.AddedDate,
+                Name = g.Name,
+                Id = g.Id,
+                CheckedIndexModels = ind.Where(i => i.GroupId == g.Id).ToList()
+            }).ToList();
+            return groupmodels;
+        } 
+
+        private ICollection<CheckedGroupModel> GetCheckedGroupModels(Guid ratingId)
+        {
+            var groups = _groupRepository.GetAll().ToList();
+            var groupModels = groups.Select(g => new CheckedGroupModel
+            {
+                AddedDate = g.AddedDate,
+                Id = g.Id,
+                Name = g.Name,
+                CheckedIndexModels = GetIndexModelsForGroup(g.Indices, ratingId)
+            }).OrderBy(i => i.AddedDate);
+
+            return groupModels.ToList();
+        }
+        private ICollection<CheckedIndexModel> GetIndexModelsForGroup(ICollection<Index> indices, Guid ratingId)
+        {
+            var checkedModels = indices.Select(i => new CheckedIndexModel
+            {
+                Checked = i.Ratings.Any(r => r.Id == ratingId),
+                Id = i.Id,
+                GroupId = i.GroupId,
+                Name = i.Name,
+                GroupName = i.Group.Name,
+                ParentId = i.ParentId,
+                UOM = i.UOM,
+                AddedDate = i.AddedDate
+            })
+            .OrderBy(i => i.AddedDate).ToList();
+
+            return checkedModels;
         }
 
         // POST: Admin/Rating/Edit/5
@@ -127,7 +179,8 @@ namespace Ratings.Web.Areas.Admin.Controllers
 
                 entity.Name = ratingModel.Name;
 
-                UpdateCheckedIndices(ratingModel.CheckedIndexModels, entity);
+                UpdateCheckedIndices(ratingModel.CheckedGroupModels
+                    .SelectMany(r => r.CheckedIndexModels), entity);
 
                 _ratingRepository.Edit(entity);
                 _ratingRepository.Save();

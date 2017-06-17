@@ -1,14 +1,13 @@
 ﻿@model Ratings.Web.Models.Index.IndexModel
-<tr>
-    <td>
+<tr class="row">
+    <td class="col-md-10">
         @Html.DisplayFor(model => model.Name)
     </td>
-    <td style="vertical-align:middle">
+    <td style="vertical-align:middle"  class="col-md-2">
         @Html.EditorFor(model => model.Value)
     </td>
     @Html.HiddenFor(model => model.Id)
     @Html.HiddenFor(model => model.GroupId)
     @Html.HiddenFor(model => model.Name)
-
 </tr>
 

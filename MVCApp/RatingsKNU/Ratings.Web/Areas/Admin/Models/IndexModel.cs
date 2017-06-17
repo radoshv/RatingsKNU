@@ -14,5 +14,6 @@ namespace Ratings.Web.Areas.Admin.Models
         public string GroupName { get; set; }
         public string Name { get; set; }
         public UnitOfMeasure UOM { get; set; }
+        public DateTime AddedDate { get; set; }
     }
 }

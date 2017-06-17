@@ -3,15 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Ratings.Web.Models.Index
+namespace Ratings.Web.Areas.Admin.Models
 {
-    public class GroupModel
+    public class CheckedGroupModel
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
-        public ICollection<IndexModel> Indices { get; set; }
-        //public int? OrderNo { get; set; }
-
         public DateTime AddedDate { get; set; }
+        public ICollection<CheckedIndexModel> CheckedIndexModels { get; set; }
     }
 }

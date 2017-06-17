@@ -18,7 +18,8 @@ namespace Ratings.Web.Mapper
                 Id = index.Id,
                 Name = index.Name,
                 ParentId = index.ParentId,
-                Value = value?.Value
+                Value = value?.Value,
+                AddedDate = index.AddedDate
             };
         }
 
@@ -28,7 +29,8 @@ namespace Ratings.Web.Mapper
             return new GroupModel
             {
                 Id = group.Id,
-                Name = group.Name
+                Name = group.Name,
+                AddedDate = group.AddedDate
             };
         }
 
@@ -46,7 +48,8 @@ namespace Ratings.Web.Mapper
             return new RatingModel
             {
                 Id = rating.Id,
-                Name = rating.Name
+                Name = rating.Name,
+                
             };
         }
         #endregion

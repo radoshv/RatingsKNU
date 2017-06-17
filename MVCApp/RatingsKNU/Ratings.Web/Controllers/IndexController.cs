@@ -24,11 +24,12 @@ namespace Ratings.Web.Controllers
         private readonly Faculty _currFaculty;
 
         public IndexController(IIndexRepository indexRepository, IIndexValueRepository indexValueRepository,
-            IFacultyRepository facultyRepository)
+            IFacultyRepository facultyRepository, IGroupRepository groupRepository)
         {
             _indexRepository = indexRepository;
             _indexValueRepository = indexValueRepository;
             _facultyRepository = facultyRepository;
+            _groupRepository = groupRepository;
             _mapper = new Mapper.Mapper();
             _currFaculty = facultyRepository.FindBy(f => f.Name == "ФІТ").First(); // temp
         }
@@ -36,7 +37,8 @@ namespace Ratings.Web.Controllers
         // GET: Index
         public ActionResult Index()
         {
-            var models = GetAllIndexModels();
+            return RedirectToAction("GroupedList");
+            var models = GetAllIndexModels().OrderBy(i => i.AddedDate);
 
             return View(models);
         }
@@ -45,15 +47,15 @@ namespace Ratings.Web.Controllers
         public ActionResult GroupedList()
         {
             var groups = _groupRepository.GetAll().ToList();
-            var groupModels = groups.Select(_mapper.MapGroupToModel);
-
-            var indexModels = GetAllIndexModels();
-
-            foreach (var group in groupModels)
+            var groupModels = groups.Select(g => new GroupModel
             {
-                group.Indices = indexModels.Where(m => m.GroupId == group.Id).ToList();
-            }
+                AddedDate = g.AddedDate,
+                Id = g.Id,
+                Name = g.Name,
+                Indices = GetIndexModelsForGroup(g.Indices)
+            }).OrderBy(i => i.AddedDate);
 
+           
             return View(groupModels);
         }
 
@@ -63,46 +65,59 @@ namespace Ratings.Web.Controllers
             var values = _indexValueRepository.FindBy(v => v.FacultyId == _currFaculty.Id).ToList();
 
             var models = indices
-                .LeftJoin(values, i => i.Id, v => v.IndexId, (i, v) => new { Index = i, Value = v })
+                .LeftJoin(values, i => i.Id, v => v.IndexId, (i, v) => new {Index = i, Value = v})
                 .Select(r => _mapper.MapIndexToModel(r.Index, r.Value));
 
             return models;
-        } 
-        [HttpPost]
-        public ActionResult Index(IEnumerable<Ratings.Web.Models.Index.IndexModel> md)
+        }
+
+        private ICollection<IndexModel> GetIndexModelsForGroup(ICollection<Index> indices)
         {
-           foreach(var item in md)
-            {
-                try
+            var values = _indexValueRepository.FindBy(v => v.FacultyId == _currFaculty.Id);
+            var q =
+                from i in indices
+                join v in values on i.Id equals v.IndexId into iv
+                from v in iv.DefaultIfEmpty()
+                select new IndexModel
                 {
-                    var entity = _indexValueRepository.FindBy(i => i.IndexId == item.Id && i.FacultyId == _currFaculty.Id).FirstOrDefault();
-                    if (entity == null)
+                    Id = i.Id,
+                    ParentId = i.ParentId,
+                    Name = i.Name,
+                    Value = v.Value,
+                    UOM = i.UOM,
+                    AddedDate = i.AddedDate
+                };
+
+            return q.OrderBy(i => i.AddedDate).ToList();
+        }
+
+        [HttpPost]
+        public ActionResult Index(IEnumerable<IndexModel> md)
+        {
+            foreach (var item in md)
+            {
+                var entity =
+                    _indexValueRepository.FindBy(i => i.IndexId == item.Id && i.FacultyId == _currFaculty.Id)
+                        .FirstOrDefault();
+                if (entity == null)
+                {
+                    entity = new IndexValue
                     {
-                        entity = new IndexValue();
+                        Value = item.Value,
+                        FacultyId = _currFaculty.Id,
+                        IndexId = item.Id
+                    };
 
-                        entity.Value = item.Value;
-                        entity.Id = item.Id;
-                        entity.FacultyId = _currFaculty.Id;
-                        entity.IndexId = item.Id;
-                        _indexValueRepository.Add(entity);
-
-                        _indexValueRepository.Save();
-
-                    }
-                    else
-                    {
-                        entity.Value = item.Value;
-                        _indexValueRepository.Edit(entity);
-
-                        _indexValueRepository.Save();
-                    }
+                    _indexValueRepository.Add(entity);
                 }
-                catch(Exception e) {
-                    return HttpNotFound(e.Message);
+                else
+                {
+                    entity.Value = item.Value;
+                    _indexValueRepository.Edit(entity);
                 }
-                
             }
-           
+            _indexValueRepository.Save();
+
             return RedirectToAction("Index");
         }
     }
