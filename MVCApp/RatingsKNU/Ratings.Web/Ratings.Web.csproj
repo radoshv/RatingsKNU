@@ -335,6 +335,7 @@
     <Content Include="Views\Rating\Index.cshtml" />
     <Content Include="Views\Rating\Indices.cshtml" />
     <Content Include="Views\Index\EditorTemplates\IndexModel.cshtml" />
+    <Content Include="Views\Rating\EditorTemplates\IndexModel.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -19,7 +19,9 @@ namespace Ratings.Web.Mapper
                 Name = index.Name,
                 ParentId = index.ParentId,
                 Value = value?.Value,
-                AddedDate = index.AddedDate
+                AddedDate = index.AddedDate,
+                GroupId = index.GroupId,
+                UOM = index.UOM
             };
         }
 
@@ -48,39 +50,39 @@ namespace Ratings.Web.Mapper
             return new RatingModel
             {
                 Id = rating.Id,
-                Name = rating.Name,
+                Name = rating.Name
                 
             };
         }
         #endregion
 
-        #region Map to entity 
-        public Index MapIndexToEntity(IndexModel model) //todo review
-        {
-            return new Index
-            {
-                Name = model.Name,
-                UOM = model.UOM,
-                ParentId = model.ParentId,
-                GroupId = model.GroupId
-            };
-        }
+        //#region Map to entity 
+        //public Index MapIndexToEntity(IndexModel model) //todo review
+        //{
+        //    return new Index
+        //    {
+        //        Name = model.Name,
+        //        UOM = model.UOM,
+        //        ParentId = model.ParentId,
+        //        GroupId = model.GroupId
+        //    };
+        //}
 
-        public Group MapGroupToEntity(GroupModel group) //todo review
-        {
-            return new Group
-            {
-                Name = group.Name
-            };
-        }
+        //public Group MapGroupToEntity(GroupModel group) //todo review
+        //{
+        //    return new Group
+        //    {
+        //        Name = group.Name
+        //    };
+        //}
 
-        public Rating MapRatingToEntity(RatingModel model)
-        {
-            return new Rating
-            {
-                Name = model.Name
-            };
-        }
-        #endregion
+        //public Rating MapRatingToEntity(RatingModel model)
+        //{
+        //    return new Rating
+        //    {
+        //        Name = model.Name
+        //    };
+        //}
+        //#endregion
     }
 }

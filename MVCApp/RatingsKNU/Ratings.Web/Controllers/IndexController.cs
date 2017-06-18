@@ -44,20 +44,44 @@ namespace Ratings.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult GroupedList()
+        public ActionResult Groups()
         {
-            var groups = _groupRepository.GetAll().ToList();
-            var groupModels = groups.Select(g => new GroupModel
-            {
-                AddedDate = g.AddedDate,
-                Id = g.Id,
-                Name = g.Name,
-                Indices = GetIndexModelsForGroup(g.Indices)
-            }).OrderBy(i => i.AddedDate);
+            var groups = _groupRepository.GetAll();
+            var model = groups.Select(_mapper.MapGroupToModel).OrderBy(g => g.AddedDate);
 
-           
-            return View(groupModels);
+            return View(model);
         }
+
+        [HttpGet]
+        public ActionResult Fill(Guid? groupId)
+        {
+            if (groupId == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            var group = _groupRepository.FindBy(g => g.Id == groupId.Value).FirstOrDefault();
+            if (group == null)
+                return HttpNotFound();
+
+            var model = _mapper.MapGroupToModel(group);
+            model.Indices = GetIndexModelsForGroup(group.Indices);
+
+            return View(model);
+        }
+
+        //[HttpGet]
+        //public ActionResult GroupedList()
+        //{
+        //    var groups = _groupRepository.GetAll().ToList();
+        //    var groupModels = groups.Select(g => new GroupModel
+        //    {
+        //        AddedDate = g.AddedDate,
+        //        Id = g.Id,
+        //        Name = g.Name,
+        //        Indices = GetIndexModelsForGroup(g.Indices)
+        //    }).OrderBy(i => i.AddedDate);
+         
+        //    return View(groupModels);
+        //}
 
         private IEnumerable<IndexModel> GetAllIndexModels()
         {
@@ -70,6 +94,18 @@ namespace Ratings.Web.Controllers
 
             return models;
         }
+
+        //private IEnumerable<IndexModel> GetIndexModelsForGroup(Group group)
+        //{
+        //    var indices = group.Indices;
+        //    var values = _indexValueRepository.FindBy(v => v.FacultyId == _currFaculty.Id).ToList();
+
+        //    var models = indices
+        //        .LeftJoin(values, i => i.Id, v => v.IndexId, (i, v) => new { Index = i, Value = v })
+        //        .Select(r => _mapper.MapIndexToModel(r.Index, r.Value));
+
+        //    return models;
+        //}
 
         private ICollection<IndexModel> GetIndexModelsForGroup(ICollection<Index> indices)
         {

@@ -52,7 +52,7 @@ namespace Ratings.Web.Controllers
                 return HttpNotFound();
 
             var ratingModel = _mapper.MapRatingToModel(rating);
-            var indexModels = GetAllIndexModels(i => i.Ratings.Any(r => r.Id == ratingId));
+            var indexModels = GetIndexModels(rating.Indices);
 
             ratingModel.Indices = indexModels.ToList();
 
@@ -61,12 +61,33 @@ namespace Ratings.Web.Controllers
 
         public ActionResult Save(RatingModel model)
         {
-            if (model == null)
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (ModelState.IsValid)
+            {
+                foreach (var item in model.Indices)
+                {
+                    var entity =
+                        _indexValueRepository.FindBy(i => i.IndexId == item.Id && i.FacultyId == _currFaculty.Id)
+                            .FirstOrDefault();
+                    if (entity == null)
+                    {
+                        entity = new IndexValue
+                        {
+                            Value = item.Value,
+                            FacultyId = _currFaculty.Id,
+                            IndexId = item.Id
+                        };
 
-            // saving data
-
-            throw new NotImplementedException();
+                        _indexValueRepository.Add(entity);
+                    }
+                    else
+                    {
+                        entity.Value = item.Value;
+                        _indexValueRepository.Edit(entity);
+                    }
+                }
+                _indexValueRepository.Save();
+            }
+            return View("Indices", model);
         }
 
         public ActionResult ToExcel(Guid? ratingId)
@@ -76,7 +97,11 @@ namespace Ratings.Web.Controllers
 
             // excel code
             var rating = _ratingRepository.FindBy(r => r.Id == ratingId.Value).FirstOrDefault();
-            var values = _indexValueRepository.FindBy(v => v.FacultyId == _currFaculty.Id).ToList();
+            var indexIds = rating?.Indices.Select(i => i.Id).ToList();
+            if (rating == null)
+                return HttpNotFound();
+
+            var values = _indexValueRepository.FindBy(v => v.FacultyId == _currFaculty.Id && indexIds.Contains(v.IndexId)).ToList();
             ExportExcel.ExportRatingsToExel(values, rating);
             return RedirectToAction("Index");
         }
@@ -89,6 +114,16 @@ namespace Ratings.Web.Controllers
 
             var models = indices
                 .LeftJoin(values, i => i.Id, v => v.IndexId, (i, v) => new { Index = i, Value = v })
+                .Select(r => _mapper.MapIndexToModel(r.Index, r.Value));
+
+            return models;
+        }
+
+        private IEnumerable<IndexModel> GetIndexModels(IEnumerable<Index> indices)
+        {
+            var values = _indexValueRepository.FindBy(v => v.FacultyId == _currFaculty.Id).ToList();
+            var models = indices
+                .LeftJoin(values, i => i.Id, v => v.IndexId, (i, v) => new {Index = i, Value = v})
                 .Select(r => _mapper.MapIndexToModel(r.Index, r.Value));
 
             return models;

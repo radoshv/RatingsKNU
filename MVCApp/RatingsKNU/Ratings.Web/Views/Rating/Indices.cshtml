@@ -6,24 +6,20 @@
 
 <h2>@Model.Name</h2>
 
+<br/>
 @Html.ActionLink("Завантажити Excel", "ToExcel", new { ratingId = Model.Id }, new { @class = "btn btn-primary" })
-
-@Html.BeginForm("Save", "Rating", FormMethod.Post)
+<br/>
+<br/>
+<br/>
+@using (Html.BeginForm("Save", "Rating"))
 {
     <table class="table">
-        @foreach (var index in Model.Indices)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => index.Name)
-                </td>
-                <td>
-                    @Html.EditorFor(modelItem => index.Value)
-                </td>
-            </tr>
-        }
+
+     @Html.EditorFor(model => model.Indices)
+
+
     </table>
-    <button type="submit">Зберегти</button>
+    <input type="submit" class="btn btn-default" name="knopka" value="Зберегти" />
 }
 <p>
     @Html.ActionLink("Назад до списку", "Index")
