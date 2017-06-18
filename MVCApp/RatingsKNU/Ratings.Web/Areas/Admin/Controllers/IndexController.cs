@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace Ratings.Web.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class IndexController : Controller
     {
         private readonly IIndexRepository _indexRepository;

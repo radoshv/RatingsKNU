@@ -14,6 +14,7 @@ using Ratings.Web.Models.Index;
 
 namespace Ratings.Web.Controllers
 {
+    [Authorize]
     public class IndexController : Controller
     {
         private readonly IIndexRepository _indexRepository;

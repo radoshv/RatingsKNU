@@ -15,6 +15,7 @@ using IndexModel = Ratings.Web.Models.Index.IndexModel;
 
 namespace Ratings.Web.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class RatingController : Controller
     {
         private readonly IRatingRepository _ratingRepository;

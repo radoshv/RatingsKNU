@@ -11,6 +11,7 @@ using Ratings.Web.Models.Rating;
 
 namespace Ratings.Web.Controllers
 {
+    [Authorize]
     public class RatingController : Controller
     {
         private readonly IRatingRepository _ratingRepository;

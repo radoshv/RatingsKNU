@@ -12,6 +12,7 @@ using Ratings.Web.Areas.Admin.Models;
 
 namespace Ratings.Web.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class GroupController : Controller
     {
         private readonly IGroupRepository _groupRepository;

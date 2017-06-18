@@ -24,8 +24,11 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Заповнити показники", "Index", "Index", new {area = ""}, new {})</li>
                     <li>@Html.ActionLink("Переглянути рейтинги", "Index", "Rating", new {area = ""}, new {})</li>
-                    <li>@Html.ActionLink("Редагувати показники", "Index", "Group", new {area = "Admin"}, new {})</li>
-                    <li>@Html.ActionLink("Редагувати рейтинги", "Index", "Rating", new { area = "Admin" }, new {})</li>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <li>@Html.ActionLink("Редагувати показники", "Index", "Group", new { area = "Admin" }, new { })</li>
+                        <li>@Html.ActionLink("Редагувати рейтинги", "Index", "Rating", new { area = "Admin" }, new { })</li>
+                    }
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

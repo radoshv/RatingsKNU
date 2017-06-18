@@ -50,6 +50,9 @@ namespace Ratings.Data.Migrations
             const string adminName = "admin@knu.ua";
             const string adminPass = "pass123";
 
+            const string userName = "user@knu.ua";
+            const string userPass = "user123";
+
             var admin = userManager.FindByName(adminName);
             if (admin == null) // create administrator
             {
@@ -61,6 +64,14 @@ namespace Ratings.Data.Migrations
             if (!rolesForUser.Contains(adminRoleName))
             {
                 userManager.AddToRole(admin.Id, adminRoleName);
+            }
+
+            var user = userManager.FindByName(userName);
+            if (user == null)
+            {
+                user = new ApplicationUser {UserName = userName, Email = userName};
+                userManager.Create(user, userPass);
+                userManager.SetLockoutEnabled(user.Id, false);
             }
 
             base.Seed(context);
